@@ -43,12 +43,17 @@ const arrayToCsv = (dataArray) => {
   return csvRows.join("\n");
 };
 
+let store = []; // Since Merise blocks grammar levels from the desktop version, fetch results are stored;
+
 const getWords = (courseId, level, levelEnd) => {
+  console.log(level);
   const url = `https://app.memrise.com/ajax/session/?course_id=${courseId}&level_index=${level}&session_slug=preview`;
   const data = { credentials: "same-origin" };
+  const creatorName = document.querySelector('a.creator-name > span').innerText;
 
   return fetch(url, data)
     .then((response) => {
+      console.log(level, response)
       if (response.status === 200) {
         return (
           response
@@ -73,19 +78,29 @@ const getWords = (courseId, level, levelEnd) => {
                     object[attribute.label] = attribute.value;
                   }
                 }
+                // console.log(object)
                 return object;
               });
             })
             .then((words) => {
+              store = [...words];
               if (level + 1 <= levelEnd) {
                 return getWords(courseId, level + 1, levelEnd).then(
-                  words.concat.bind(words)
+                  words.concat.bind(store)
                 );
               } else {
                 return words;
               }
             })
         );
+      } else if (response.status === 400 && level <= levelEnd) {
+        if (level + 1 <= levelEnd) {
+          return getWords(courseId, level + 1, levelEnd).then(
+            store.concat.bind(store)
+          );
+        } else {
+          return words;
+        }
       } else {
         return [];
       }
@@ -111,7 +126,6 @@ const handleMessage = (request, sender, sendResponse) => {
   if (test) {
     const courseName = document.querySelector("h1.course-name").textContent;
     const coursePhotoUrl = document.querySelector("a.course-photo > img").src;
-    console.log(courseName);
     sendResponse({ courseName, coursePhotoUrl });
   } else if (tabUrl) {
     getVocabularyList(tabUrl);
