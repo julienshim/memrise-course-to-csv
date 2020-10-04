@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Memrise Course to CSV",
+  "version": "1.0",
+  "content_scripts": [
+    {
+      "matches": ["https://app.memrise.com/course/*"],
+      "js": ["content.js"]
+    }
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "permissions": ["tabs"],
+  "browser_action": {
+    "default_popup": "popup/popup.html",
+    "default_title": "A popup will come here."
+  }
+}
