@@ -1,16 +1,32 @@
-# Memrise Scraper
+# Memrise Course to CSV
 
-Memrise Scraper is a browser extension that pulls the data from any public Memrise course. The goal is for users to be able pull Memrise course data, copy the spreadsheet format friendly data, and paste it into their preferred browser.
+Memrise Course to CSV is a Google Chrome web browser extension that converts a Memrise courses into a CSV file.
+
+# Demo (gif)
+
+<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/demo.gif?raw=true" width="500"/>
+
+## Limitations
+
+- Grammar lessons are currently only available in Memrise apps. Memrise Course to CSV will detect and skip these levels.
+- Developer chooses not to capture images, and audio at this time.
 
 ## Features
 
-- Works on any public Memrise course, no matter how many 'sides' (or 'columns') the course has.
+- Works with any public memrise course, no matter how many sides a card has.
 
-## Browser Compatibility
+_Memrise Level View_ (Korean, English)
 
-- Google Chrome
+<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/card-level.png?raw=true" width="250">
 
-## Future Updates
+_Memrise Database View_ (Korean, English, Audio (Not Utilized/Ignored), Pronuncation, Hanja)
 
-- Audio Links
-- Level Start/End Parameters
+<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/card-database.png?raw=true" width="250">
+
+_CSV View_ (Item (Korean), Definition (English), Pronuncation, Hanja)
+
+<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/card-spreadsheet.png?raw=true" width="250">
+
+- Detects Memrise course being displayed in Google Chrome web browser tab.
+
+<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/course-detect.png?raw=true" width="250">
