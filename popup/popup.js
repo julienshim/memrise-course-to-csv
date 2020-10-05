@@ -16,7 +16,6 @@ chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
       test: "test",
     };
     chrome.tabs.sendMessage(tabId, message, (response) => {
-      console.log(message);
       const { courseName, coursePhotoUrl } = response;
       courseFound.textContent = courseName;
       coursePhoto.src = coursePhotoUrl;
@@ -38,4 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
   document
     .getElementById("button-container")
     .addEventListener("click", download);
+});
+
+
+chrome.runtime.onMessage.addListener(function (message, sender, sendResponse) {
+  document.querySelector('div#button-container').innerHTML = `<span>${message.status}</span>`;
 });
