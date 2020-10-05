@@ -4,8 +4,12 @@
   }, 1000);
 })();
 
+const updateStatus = (status) => {
+  chrome.runtime.sendMessage({status});
+};
+
 const download = (data) => {
-  console.log("Downloading CSV...");
+  updateStatus("Downloading CSV...");
   const blob = new Blob([data], { type: "text/csv" });
   const url = window.URL.createObjectURL(blob);
   const a = document.createElement("a");
@@ -20,7 +24,7 @@ const download = (data) => {
 };
 
 const arrayToCsv = (dataArray) => {
-  console.log("Generating CSV...");
+  updateStatus("Generating CSV...");
   let maxHeaderLength = 0;
   let headers = [];
   const csvRows = [];
@@ -46,14 +50,12 @@ const arrayToCsv = (dataArray) => {
 let store = []; // Since Merise blocks grammar levels from the desktop version, fetch results are stored;
 
 const getWords = (courseId, level, levelEnd) => {
-  console.log(level);
   const url = `https://app.memrise.com/ajax/session/?course_id=${courseId}&level_index=${level}&session_slug=preview`;
   const data = { credentials: "same-origin" };
-  const creatorName = document.querySelector('a.creator-name > span').innerText;
+  // const creatorName = document.querySelector("a.creator-name > span").innerText;
 
   return fetch(url, data)
     .then((response) => {
-      console.log(level, response)
       if (response.status === 200) {
         return (
           response
@@ -78,7 +80,6 @@ const getWords = (courseId, level, levelEnd) => {
                     object[attribute.label] = attribute.value;
                   }
                 }
-                // console.log(object)
                 return object;
               });
             })
@@ -95,6 +96,7 @@ const getWords = (courseId, level, levelEnd) => {
         );
       } else if (response.status === 400 && level <= levelEnd) {
         if (level + 1 <= levelEnd) {
+          updateStatus(`Level ${level} unavailable. Skipping...`);
           return getWords(courseId, level + 1, levelEnd).then(
             store.concat.bind(store)
           );
@@ -111,9 +113,11 @@ const getWords = (courseId, level, levelEnd) => {
 };
 
 const getVocabularyList = (tabUrl) => {
-  console.log("Generating vocabulary list...");
+  updateStatus("Generating vocabulary list...");
   const levelStart = 1;
-  const levelEnd = document.querySelectorAll(".level").length;
+  const levelEnd =
+    document.querySelector("a.tab").innerText.match(/\d{1,}/g) ||
+    document.querySelectorAll(".level").length;
   const courseId = tabUrl.match(/(?:[\d]{1,})/)[0];
   getWords(courseId, levelStart, levelEnd).then((words) => {
     const csv = arrayToCsv(words);
