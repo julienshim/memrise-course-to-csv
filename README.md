@@ -17,16 +17,16 @@ Memrise Course to CSV is a Google Chrome web browser extension that converts a M
 
 _Memrise Level View_ (Korean, English)
 
-<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/card-level.png?raw=true" width="250">
+<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/card-level.png?raw=true" width="500">
 
 _Memrise Database View_ (Korean, English, Audio (Not Utilized/Ignored), Pronuncation, Hanja)
 
-<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/card-database.png?raw=true" width="250">
+<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/card-database.png?raw=true" width="500">
 
 _CSV View_ (Item (Korean), Definition (English), Pronuncation, Hanja)
 
-<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/card-spreadsheet.png?raw=true" width="250">
+<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/card-spreadsheet.png?raw=true" width="500">
 
 - Detects Memrise course being displayed in Google Chrome web browser tab.
 
-<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/course-detect.png?raw=true" width="250">
+<img src="https://github.com/julienshim/memrise-course-to-csv/blob/master/public/images/course-detect.png?raw=true" width="500">
